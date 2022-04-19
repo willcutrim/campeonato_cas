@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}detalhes{% endblock title %}
+
+
+{%block content%}
+   Nome: {{ user_detal.nome_completo }}<br>
+   Time: {{ user_detal.equipe}}<br>
+   Email: {{ user_detal.email }}
+{%endblock content%}
