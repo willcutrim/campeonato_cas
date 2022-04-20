@@ -1,61 +1,69 @@
 {% extends 'base.html' %}
-
+{% load bootstrap %}
 {%block title%}Home{% endblock title%}
 
-
 {%block content%}
+<style>
+  #btn_salvar{
+    margin-top: 10px;
+    padding-right: 235px;
+    padding-left: 235px;
+  }
+  #formulario{
+    padding: 15px;
+  }
+  #container{
+    padding-top:10px;
+  }
+</style>
+<h2 class="text-center alert alert-info" id="titulo">Dashboard - ADMIN BASE</h2>
+<div class="container" id="container"> 
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center alert alert-info" id="titulo">CADASTRO</h4>
+      <form method="post" class="post-form" id="formulario">{% csrf_token %}
+        {{ form|bootstrap }}<hr>
+        {{ form_endereco|bootstrap }}
 
-<form method="post" class="post-form">{% csrf_token %}
-    <!--
-    <p>
-        <label for="id_nome_completo">Nome completo:</label>
-        <input type="text" name="nome_completo" id="id_nome_completo" required="" maxlength="250">
-    </p>
-    <p>
-        <label for="id_numero_telefone">Numero telefone:</label> 
-        <input type="text" name="numero_telefone" id="id_numero_telefone" required="" maxlength="11">
-    </p>
-    <p>
-        <label for="id_email">Email:</label> 
-        <input type="email" name="email" id="id_email" required="" maxlength="250">
-    </p>
-    <p>
-        <label for="id_password">Password:</label> 
-        <input type="text" name="password" id="id_password" required="" maxlength="15">
-    </p>
-    <p>
-        <label for="id_equipe">Equipe:</label> 
-        <input type="text" name="equipe" id="id_equipe" required="">
-    </p>
-    -->
-    {{form.as_p}}
-    <button type="submit" class="save btn btn-primary">Salvar</button>
-</form><br>
-
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nome</th>
-        <th scope="col">Time</th>
-        <th scope="col">Ação</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for user in users %}
-        <tr>
-          <th scope="row">{{user.id}}</th>
-          <td>{{user.nome_completo}}</td>
-          <td>{{user.equipe}}</td>
-          <td>
-              <form action="{% url 'delete' user.id %}" method="post" class="d-inline">{% csrf_token %}
-                <input type="submit" class="btn btn-danger" value="Deletar">
-              </form>
-          </td>
-        </tr>
-           
-        {% endfor %} 
-    </tbody>
-  </table>
+       
+        <button type="submit" class="save btn btn-primary" id="btn_salvar">Salvar</button>
+    </form><br>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center alert alert-info" id="titulo">INFORMAÇÕES</h4>
+      <table class="table" id="tabela">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Time</th>
+              <th scope="col">Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for user in users %}
+              
+              <tr>
+                <th scope="row">{{user.id}}</th>
+                <td>{{user.nome_completo}}</td>
+                {% if user.equipe != None%}
+                  <td>{{user.equipe}}</td>
+                {% else %}
+                  <td></td>
+                {% endif %} 
+      
+                <td>
+                    <a href="{% url 'atualizar' user.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="{% url 'delete' user.id %}" method="post" class="d-inline">{% csrf_token %}
+                      <input type="submit" class="btn btn-danger" value="Deletar">
+                    </form>
+                </td>
+              </tr>
+              {% endfor %} 
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
 
 {%endblock content%}
