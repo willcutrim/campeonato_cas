@@ -23,7 +23,7 @@
     <div class="col-6">
       <h4 class="text-center alert alert-info" id="titulo">FORMULÁRIO DE INFO.</h4>
       <form method="post" class="post-form" id="formulario">{% csrf_token %}
-        {{ form|bootstrap }}<hr>
+        {{ form|bootstrap }}
 
         <button type="submit" class="save btn btn-primary" id="btn_salvar">Salvar</button>
     </form><br>
@@ -41,12 +41,17 @@
           </thead>
           <tbody>
               {% for tabela_class in tabela %}
-              
               <tr>
                 <td id="equipe">1 {{tabela_class.nome_do_time}}</td>
                 <td>{{tabela_class.pontos}}</td>
                 <td id="vitoria">{{tabela_class.quantidade_de_vitorias}}</td> 
                 <td id="derrota">{{tabela_class.quantidade_de_derrotas}}</td> 
+                <td>
+                  <div>
+                    <a href="{% url 'form-tabela-classificaco' tabela_class.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'info-equipe' tabela_class.id %}" class="btn btn-info btn-sm">Info. Equipe</a>
+                  </div>
+                </td>
               </tr>
               {% endfor %} 
           </tbody>

@@ -40,7 +40,6 @@ def atualizar(request, id):
 
 def tabela_classifiacao(request):
     tabela = TabelaClassificacao.objects.order_by('-pontos')
-    
     if request.method == 'POST':
         form = TabelaClassForm(request.POST)
         if form.is_valid():
@@ -49,3 +48,20 @@ def tabela_classifiacao(request):
     else:
         form = TabelaClassForm()
     return render(request, 'html/form_tabela_classificacao.html', {'form':form, 'tabela': tabela})
+
+def update_classificacao(request, id):
+    tabela_id = TabelaClassificacao.objects.get(pk=id)
+    if request.method == 'POST':
+        form = TabelaClassForm(request.POST, instance=tabela_id)
+        if form.is_valid():
+            form.save()
+            return redirect('/form-tabela-classificaco/')
+    else:
+        tabela_id = TabelaClassificacao.objects.get(pk=id)
+    form = TabelaClassForm(instance=tabela_id)
+    return render(request, 'html/form_tabela_classificacao.html', {'form':  form, 'tabela_id': tabela_id})
+
+
+def info_equipe(request, id):
+    tabela_id = TabelaClassificacao.objects.get(pk=id)
+    return render(request, 'html/infor_equipe.html', {'tabela_id': tabela_id})
