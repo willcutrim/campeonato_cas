@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{%block title%}Home{% endblock title%}
+
+{%block content%}
+<style>
+  #btn_salvar{
+    margin-top: 10px;
+    padding-right: 235px;
+    padding-left: 235px;
+  }
+  #formulario{
+    padding: 15px;
+  }
+  #container{
+    padding-top:10px;
+  }
+  
+</style>
+<h2 class="text-center alert alert-info" id="titulo">Dashboard - ADMIN BASE</h2>
+<div class="container" id="container"> 
+  <div class="row">
+    <div class="col-6">
+      <h4 class="text-center alert alert-info" id="titulo">FORMULÁRIO DE INFO.</h4>
+      <form method="post" class="post-form" id="formulario">{% csrf_token %}
+        {{ form|bootstrap }}<hr>
+
+        <button type="submit" class="save btn btn-primary" id="btn_salvar">Salvar</button>
+    </form><br>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center alert alert-info" id="titulo">TABELA</h4>
+      <table class="table" id="tabela">
+          <thead>
+            <tr>
+              <th scope="col">Time</th>
+              <th scope="col">Pts</th>
+              <th scope="col">VIT</th>
+              <th scope="col">DER</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for tabela_class in tabela %}
+              
+              <tr>
+                <td id="equipe">1 {{tabela_class.nome_do_time}}</td>
+                <td>{{tabela_class.pontos}}</td>
+                <td id="vitoria">{{tabela_class.quantidade_de_vitorias}}</td> 
+                <td id="derrota">{{tabela_class.quantidade_de_derrotas}}</td> 
+              </tr>
+              {% endfor %} 
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+
+{%endblock content%}

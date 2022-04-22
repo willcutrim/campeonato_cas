@@ -1,18 +1,18 @@
 from django import forms
 
-from .models import User, Equipe, Endereco
+from .models import User, Equipe, TabelaClassificacao
 
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['nome_completo','numero_telefone','email', 'password', 'equipe']
+        fields = '__all__'
 
 class EquipeForm(forms.ModelForm):
     class Meta:
         model = Equipe
         fields = ['nome_time']
 
-class EnderecoForm(forms.ModelForm):
+class TabelaClassForm(forms.ModelForm):
     class Meta:
-        model = Endereco
+        model = TabelaClassificacao
         fields = '__all__'

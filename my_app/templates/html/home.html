@@ -23,9 +23,7 @@
       <h4 class="text-center alert alert-info" id="titulo">CADASTRO</h4>
       <form method="post" class="post-form" id="formulario">{% csrf_token %}
         {{ form|bootstrap }}<hr>
-        {{ form_endereco|bootstrap }}
 
-       
         <button type="submit" class="save btn btn-primary" id="btn_salvar">Salvar</button>
     </form><br>
     </div>
